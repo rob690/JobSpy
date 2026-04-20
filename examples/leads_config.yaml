@@ -1,0 +1,25 @@
+sites: [indeed, linkedin, zip_recruiter, google, glassdoor]
+country_indeed: United Kingdom
+results_wanted: 50
+hours_old: 24
+description_format: markdown
+
+verticals:
+  - "software engineer"
+  - "senior software engineer"
+  - "data engineer"
+  - "machine learning engineer"
+  - "devops engineer"
+  - "platform engineer"
+  - "engineering manager"
+
+locations:
+  - United Kingdom
+  - London
+  - Leeds
+  - Manchester
+  - Nottingham
+  - "Remote"
+
+output_dir: "./leads"
+history_file: "./leads/seen_jobs.csv"
