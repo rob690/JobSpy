@@ -1,0 +1,22 @@
+sites: [indeed, linkedin, zip_recruiter, google, glassdoor]
+country_indeed: USA
+results_wanted: 50
+hours_old: 24
+description_format: markdown
+
+verticals:
+  - "software engineer"
+  - "senior software engineer"
+  - "data engineer"
+  - "machine learning engineer"
+  - "devops engineer"
+  - "platform engineer"
+  - "engineering manager"
+
+locations:
+  - "San Francisco, CA"
+  - "New York, NY"
+  - "Remote"
+
+output_dir: "./leads"
+history_file: "./leads/seen_jobs.csv"
