@@ -1,0 +1,49 @@
+name: Daily recruitment leads
+
+on:
+  schedule:
+    # 06:00 UTC daily. Adjust to your local business hours if needed.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pyyaml
+
+      - name: Restore seen-jobs history
+        uses: actions/cache@v4
+        with:
+          path: leads/seen_jobs.csv
+          # A unique key per run ensures this run writes a new cache entry;
+          # restore-keys finds the most recent previous entry.
+          key: leads-history-${{ github.run_id }}
+          restore-keys: |
+            leads-history-
+
+      - name: Run daily leads scraper
+        run: python examples/daily_leads.py
+
+      - name: Upload today's leads CSV
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: leads-${{ github.run_id }}
+          path: leads/leads_*.csv
+          if-no-files-found: warn
+          retention-days: 90
