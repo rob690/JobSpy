@@ -1,5 +1,5 @@
 sites: [indeed, linkedin, zip_recruiter, google, glassdoor]
-country_indeed: USA
+country_indeed: United Kingdom
 results_wanted: 50
 hours_old: 24
 description_format: markdown
@@ -14,8 +14,11 @@ verticals:
   - "engineering manager"
 
 locations:
-  - "San Francisco, CA"
-  - "New York, NY"
+  - United Kingdom
+  - London
+  - Leeds
+  - Manchester
+  - Nottingham
   - "Remote"
 
 output_dir: "./leads"
