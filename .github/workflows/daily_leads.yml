@@ -37,13 +37,17 @@ jobs:
             leads-history-
 
       - name: Run daily leads scraper
-        run: python examples/daily_leads.py
+        run: |
+          mkdir -p leads
+          python -u examples/daily_leads.py 2>&1 | tee leads/run.log
 
-      - name: Upload today's leads CSV
+      - name: Upload run artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: leads-${{ github.run_id }}
-          path: leads/leads_*.csv
+          path: |
+            leads/leads_*.csv
+            leads/run.log
           if-no-files-found: warn
           retention-days: 90
