@@ -116,8 +116,18 @@ def run(config_path: Path) -> int:
             df["search_location"] = loc
             frames.append(df)
 
+    today = date.today().isoformat()
+    out_file = output_dir / f"leads_{today}.csv"
+
     if not frames:
         print("No results returned from any query.", flush=True)
+        pd.DataFrame(columns=PRIORITY_COLUMNS).to_csv(
+            out_file,
+            index=False,
+            quoting=csv.QUOTE_NONNUMERIC,
+            escapechar="\\",
+        )
+        print(f"Wrote {out_file} (empty)", flush=True)
         return 0
 
     all_today = pd.concat(frames, ignore_index=True)
@@ -126,8 +136,6 @@ def run(config_path: Path) -> int:
     new_leads = all_today[~all_today["job_url"].astype(str).isin(history)]
     new_leads = reorder_columns(new_leads)
 
-    today = date.today().isoformat()
-    out_file = output_dir / f"leads_{today}.csv"
     new_leads.to_csv(
         out_file,
         index=False,
